@@ -22,7 +22,7 @@ sudo docker tag darlon/mpi mpi
 
 ## Getting cluster up
 
-Configure a cluster with `20` machines. The parameter -n set the number of cluster nodes.
+- Configure a cluster with `20` machines. The parameter -n set the number of cluster nodes.
 
 ```bash
 sudo ./cluster.sh -n 20 -r
