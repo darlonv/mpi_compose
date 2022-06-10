@@ -3,13 +3,13 @@ services:
   master:
     hostname: 'master'
     tty: true       #Keep containers up
-    image: mpi
+    image: darlon/mpi
     volumes:
       - ./work:/home/mpi/work
   worker:
     hostname: 'worker'
     tty: true       #Keep containers up
-    image: mpi
+    image: darlon/mpi
     volumes:
       - ./work:/home/mpi/work
 
