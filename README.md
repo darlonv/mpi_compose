@@ -3,9 +3,9 @@ Mpi cluster using docker-compose
 
 Scripts to create an image
 
-##Building image or getting it from DockerHub
+## Building image or getting it from DockerHub
 
-##Building image
+## Building image
 
 This step will create an image from
 
@@ -27,7 +27,7 @@ sudo ./config_cluster.sh -n 20
 sudo ./cluster 
 ```
 
-Test the cluster
+Testing the cluster
 ```bash
 sudo ./cluster -t
 ```
@@ -36,4 +36,7 @@ Shutdown the cluster
 ```bash
 sudo ./cluster -s
 ```
+
+
+
 
