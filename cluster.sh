@@ -1,20 +1,17 @@
 #!/bin/bash
 
 NP=10
-RUNNING=0
 
 #Cluster up
 cluster_up(){
 	echo "**** Starting cluster ***"
 	docker-compose up -d --scale worker="${1}"
-	RUNNING=1
 }
 
 #Cluster down
 cluster_stop(){
 	echo "**** Stopping cluster ***"
 	docker-compose stop
-	RUNNING=0
 	echo "**** Cluster down ***"
 }
 
