@@ -28,7 +28,7 @@ sudo ./cluster.sh -n 20 -r
 This configuration consists on get the nodes' IP adresses and generate ssh keys. If more nodes are needed, this script must be re-executed.
 
 ## Getting cluster up
-Start the cluster, with 10 nodes.
+Start the cluster, with 10 nodes. This number must be smaller than the number of nodes set when executed with `-r`.
 ```bash
 sudo ./cluster.sh -n 10
 ```
