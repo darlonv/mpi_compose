@@ -31,7 +31,7 @@ reset_ssh_keys(){
 	MASTER_ID=$(awk '{print $1}' <(docker-compose ps | egrep master))
 	
 	#copy script to generate ssh keys to master
-	#docker cp gen_keys.sh "$MASTER_ID":/home/mpi/
+	docker cp gen_keys.sh "$MASTER_ID":/home/mpi/
 	
 	echo "Generating ssh keys on Master (${MASTER_ID}) .."
 	docker exec --user mpi "$MASTER_ID" /home/mpi/gen_keys.sh
@@ -48,13 +48,13 @@ reset_ssh_keys(){
 	rm -r .ssh
 }
 
-while getopts n:hst:uk flag
+while getopts n:hst:ur flag
 do
 	case "${flag}" in
 		h)
 			echo "${0}" '[-h|-n <np>]'
 			echo "	-h : this help menu."
-			echo "	-k : reset ssh keys."
+			echo "	-r : set the cluster size and generate new ssh keys."
 			echo "	-s : stop the cluster."
 			echo "	-t <np>: execute cluster test with np processes."
 			echo "	-u : show running cluster containers."
@@ -64,7 +64,8 @@ do
 		n) 
 			NP="${OPTARG}" 
 			;;
-		k)
+		r)
+			cluster_up "${NP}"
 			reset_ssh_keys
 			exit 0
 			;;
@@ -87,4 +88,7 @@ do
 	esac
 done
 
-cluster_up "${NP}"
+if [ -eq 0 ]
+then
+	cluster_up "${NP}"
+fi
