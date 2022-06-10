@@ -6,6 +6,8 @@ NP=10
 cluster_up(){
 	echo "**** Starting cluster ****"
 	docker-compose up -d --scale worker="${1}"
+	#Update ips list
+	./get_ips.sh
 }
 
 #Cluster down
@@ -42,13 +44,12 @@ reset_ssh_keys(){
 	for WORKER_NAME in $(awk '{print $1}' <(docker-compose ps | egrep worker))
 	do
 		echo "Copying keys to Worker $WORKER_NAME .."
-		docker cp .ssh "$WORKER_NAME":/home/mpi/
-		docker exec "$WORKER_NAME" chown -R mpi.mpi /home/mpi/.ssh
+		docker cp .ssh "$WORKER_NAME":"/home/mpi/"
+		echo $WORKER_NAME
+#		docker exec -t "$WORKER_NAME" bash -c "/usr/bin/ls /"
+		docker exec "$WORKER_NAME" bash -c '/usr/bin/chown -R mpi.mpi /home/mpi/.ssh'
 	done
 	rm -r .ssh
-	
-	#Update ips list
-	./get_ips.sh
 }
 
 while getopts n:hst:ure flag
@@ -75,7 +76,7 @@ do
 			cluster_up "${NP}"
 			;;
 		r)
-			cluster_up "${NP}"
+#			cluster_up "${NP}"
 			reset_ssh_keys
 			cluster_stop
 			exit 0
