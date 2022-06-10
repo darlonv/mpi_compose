@@ -1,4 +1,4 @@
 #!/bin/bash
 
-docker build -t mpi .
+docker build -t darlon/mpi .
 
