@@ -1,11 +1,12 @@
 #!/bin/bash
 
 #Get container ips
+echo -n "Getting node's IP addresses.. "
 for NAME in 'master' 'worker'
 do
-	echo '=================='
+	#echo '=================='
 
-	echo "Getting $NAME IP addresses..."
+	#echo "Getting $NAME IP addresses..."
 	> ip_.tmp
 	for IP in $(docker ps | grep _"$NAME"_ | awk '{print $1}')
 	do
@@ -14,11 +15,9 @@ do
 
 	awk '{print $2}' ip_.tmp > ip_"$NAME".txt
 	rm ip_.tmp
-	cat ip_"$NAME".txt
-	mv ip_"$NAME".txt work/
-	chown mpi.mpi work/ip_"$NAME"
-	echo 'IP addresses copied to directory "work/"'
-	
-
+	#cat ip_"$NAME".txt
+	mv ip_"$NAME".txt ./work/
+	docker exec $IP bash -c "/usr/bin/chown mpi.mpi /home/mpi/work/ip_${NAME}.txt"
 done
-echo '=================='
+echo "done."
+#echo '=================='
