@@ -28,7 +28,11 @@ Let's configure a cluster with `20` machines. The parameter -n set the number of
 sudo ./cluster.sh -n 20 -r
 ```
 
-This configuration consists on get the nodes' IP ad resses (machinefile) and generate ssh keys. If more nodes are needed, this script must be re-executed. `-r` must be **after** `-n`. The generated IP addresses list will be put inside the `work` directory.
+This configuration consists on get the nodes' IP ad resses (machinefile) and generate ssh keys. If more nodes are needed, this script must be re-executed. `-r` must be **after** `-n`. The generated IP addresses list will be put inside the `work` directory. 
+
+Inside containers, there is a `mpi` user with `UID=1000`. The `work` directory must have write permissions to the user with this UID on host, in order to keep this files and write processes outputs.
+
+This command will start the cluster, configure it and stop it.
 
 ## Getting cluster up
 Start the cluster, with 10 nodes. This number must be smaller than the number of nodes set when executed with `-r`.
