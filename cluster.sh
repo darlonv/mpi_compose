@@ -78,7 +78,7 @@ do
 		r)
 #			cluster_up "${NP}"
 			reset_ssh_keys
-			cluster_stop
+#			cluster_stop
 			exit 0
 			;;
 		t)
