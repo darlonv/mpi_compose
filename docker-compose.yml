@@ -1,0 +1,15 @@
+version: "3"
+services:
+  master:
+    hostname: 'master'
+    tty: true       #Keep containers up
+    image: mpi
+    volumes:
+      - ./work:/home/mpi/work
+  worker:
+    hostname: 'worker'
+    tty: true       #Keep containers up
+    image: mpi
+    volumes:
+      - ./work:/home/mpi/work
+
