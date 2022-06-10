@@ -30,36 +30,36 @@ sudo ./cluster.sh -n 20 -r
 
 This configuration consists on geting the cluster up and generate ssh keys. `-r` must be **after** `-n`. The generated IP addresses list will be put inside the `work` directory. 
 
-Inside containers, there is a `mpi` user with `UID=1000`. The `work` directory must have write permissions to the user with this UID on host, in order to keep this files and write processes outputs. If needed to user another UID, a new image must be built.
+Inside containers, there is a `mpi` user with `UID=1000`. The `work` directory must have write permissions to the user with this UID on host, in order to keep this files and write processes outputs. If needed to user another UID, a new docker image must be built.
 
 
-Start the cluster, with 10 nodes. This number must be smaller than the number of nodes set with `-r`.
+- Start the cluster, with 10 nodes. This number must be smaller than the number of nodes set with `-r`.
 ```bash
 sudo ./cluster.sh -n 10
 ```
 
-Test the cluster, with a specific number of jobs. By default, openmpi uses the maximum of 4 jobs per node.
+- Test the cluster, with a specific number of jobs. By default, openmpi uses the maximum of 4 jobs per node.
 ```bash
 sudo ./cluster.sh -t 20
 ```
 
-Shutting the cluster down
+- Shutting the cluster down
 ```bash
 sudo ./cluster.sh -s
 ```
 
-Setting more nodes to the cluster
+- Setting more nodes to the cluster
 ```bash
 sudo ./cluster.sh -n 30 -r
 ```
 
-Showing nodes states
+- Showing node's state
 ```bash
 sudo ./cluster.sh -u
 ```
 
 ## Running MPI
-To open a bash on master node, use `-e`. The nodes' ip addresses are on `work` directory.
+- To open a bash on master node, use `-e`. The nodes' ip addresses are on `work` directory.
 ```bash
 sudo ./cluster.sh -e
 ```
