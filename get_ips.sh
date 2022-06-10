@@ -16,6 +16,7 @@ do
 	rm ip_.tmp
 	cat ip_"$NAME".txt
 	mv ip_"$NAME".txt work/
+	chown mpi.mpi work/ip_"$NAME"
 	echo 'IP addresses copied to directory "work/"'
 	
 
