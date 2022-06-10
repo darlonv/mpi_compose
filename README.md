@@ -1,7 +1,7 @@
 # mpi_compose
 Mpi cluster using docker-compose
 
-Scripts to create an image
+Scripts set up and run a cluster using docker-compose.
 
 
 ## Building image or getting it from DockerHub
@@ -11,6 +11,7 @@ To create an image:
 ```bash
 sudo ./build_image.sh
 ```
+This image create a user `mpi` with `UID=1000`. This is useful to share the directory `work` with the host and the cluster nodes.
 
 To get an image from DockerHub:
 ```bash
@@ -25,7 +26,7 @@ Let's configure a cluster with `20` machines. The parameter -n set the number of
 sudo ./cluster.sh -n 20 -r
 ```
 
-This configuration consists on get the nodes' IP adresses and generate ssh keys. If more nodes are needed, this script must be re-executed.
+This configuration consists on get the nodes' IP ad resses (machinefile) and generate ssh keys. If more nodes are needed, this script must be re-executed. `-r` must be **after** `-n`.
 
 ## Getting cluster up
 Start the cluster, with 10 nodes. This number must be smaller than the number of nodes set when executed with `-r`.
@@ -51,5 +52,19 @@ sudo ./cluster.sh -n 30 -r
 Showing nodes states
 ```bash
 sudo ./cluster.sh -u
+```
+
+## Running MPI
+To open a bash on master node, use `-e`. The ips from node list is inside the `work` directory.
+```bash
+sudo ./cluster.sh -e
+```
+
+**Example**  
+```bash
+pwd
+cd work
+mpicc -o bin/hello_c src/hello_c.c src/hello_c.c
+mpirun -np 4 -machinefile ip_worker.txt bin/hello_c
 ```
 
