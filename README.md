@@ -3,40 +3,53 @@ Mpi cluster using docker-compose
 
 Scripts to create an image
 
+
 ## Building image or getting it from DockerHub
 
-## Building image
-
-This step will create an image from
+To create an image:
 
 ```bash
 sudo ./build_image.sh
 ```
 
+To get an image from DockerHub:
+```bash
+sudo docker pull darlonv/mpi
+```
+
 ## Configuring cluster
 
-Let's configure a cluster with `10` machines. The parameter -n set the number of cluster nodes.
+Let's configure a cluster with `20` machines. The parameter -n set the number of cluster nodes.
 
 ```bash
-sudo ./config_cluster.sh -n 20
+sudo ./cluster.sh -n 20 -r
 ```
+
+This configuration consists on get the nodes' IP adresses and generate ssh keys. If more nodes are needed, this script must be re-executed.
 
 ## Getting cluster up
-
+Start the cluster, with 10 nodes.
 ```bash
-sudo ./cluster 
+sudo ./cluster.sh -n 10
 ```
 
-Testing the cluster
+Test the cluster, with a specific number of jobs. By default, openmpi uses the maximum of 4 jobs per node.
 ```bash
-sudo ./cluster -t
+sudo ./cluster.sh -t 20
 ```
 
-Shutdown the cluster
+Shutting the cluster down
 ```bash
-sudo ./cluster -s
+sudo ./cluster.sh -s
 ```
 
+Setting more nodes to the cluster
+```bash
+sudo ./cluster.sh -n 30 -r
+```
 
-
+Showing nodes states
+```bash
+sudo ./cluster.sh -u
+```
 
