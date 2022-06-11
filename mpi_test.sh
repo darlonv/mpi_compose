@@ -37,5 +37,11 @@ echo '== C Hello done. =='
 echo '=========================='
 echo '== Executing Python Hello .. =='
 docker exec --user mpi "${CONTAINER_MASTER}" bash -c "mpirun --hostfile ~/work/ip_worker.txt -np $NP /usr/bin/python3 ~/work/src/hello_python.py"
-echo '== C Hello done. =='
+echo '== Python Hello done. =='
 echo '=========================='
+echo '== Executing Python Countdown .. =='
+docker exec --user mpi "${CONTAINER_MASTER}" bash -c "mpirun --hostfile ~/work/ip_worker.txt -np $NP /usr/bin/python3 ~/work/src/countdown_python.py"
+echo '== Python Countdown done. =='
+
+
+
