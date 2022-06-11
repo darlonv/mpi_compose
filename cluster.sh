@@ -2,13 +2,17 @@
 
 NP=10
 
+master_ip()
+{
+	echo "Master is on $(cat work/ip_master.txt)"
+}
+
 #Cluster up
 cluster_up(){
 	echo "**** Starting cluster ****"
 	docker-compose up -d --scale worker="${1}"
 	#Update ips list
 	./get_ips.sh
-	echo "Master is on $(cat work/ip_master.txt)"
 }
 
 #Cluster down
@@ -40,16 +44,20 @@ reset_ssh_keys(){
 	docker exec --user mpi "$MASTER_ID" /home/mpi/gen_keys.sh
 
 	#Copy .ssh to other containers
-	echo "Getting keys from Master.."
+	echo -n "Getting keys from Master.. "
 	docker cp "$MASTER_ID":/home/mpi/.ssh .
+	echo 'done.'
+	
+	echo -n "Copying keys to workers.. "
 	for WORKER_NAME in $(awk '{print $1}' <(docker-compose ps | egrep worker))
 	do
-		echo "Copying keys to Worker $WORKER_NAME .."
+		#echo "Copying keys to Worker $WORKER_NAME .."
 		docker cp .ssh "$WORKER_NAME":"/home/mpi/"
-		echo $WORKER_NAME
+		#echo $WORKER_NAME
 #		docker exec -t "$WORKER_NAME" bash -c "/usr/bin/ls /"
 		docker exec "$WORKER_NAME" bash -c '/usr/bin/chown -R mpi.mpi /home/mpi/.ssh'
 	done
+	echo 'done.'
 	rm -r .ssh
 }
 
@@ -75,10 +83,12 @@ do
 		n) 
 			NP="${OPTARG}"
 			cluster_up "${NP}"
+			master_ip
 			;;
 		r)
 #			cluster_up "${NP}"
 			reset_ssh_keys
+			master_ip
 #			cluster_stop
 			exit 0
 			;;
