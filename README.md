@@ -1,7 +1,7 @@
 # mpi_compose
 Mpi cluster using docker-compose
 
-Scripts set up and run a cluster using docker-compose.
+Scripts and files to set up and run a local cluster using docker-compose containers.
 
 <!--
 ## Building image or getting it from DockerHub
