@@ -11,8 +11,13 @@ ARG USERID=1000
 # - openmpi
 RUN apt update && apt -y install openssh-server net-tools gcc python3-pip python3.10 python3.10-doc openmpi-common openmpi-bin libopenmpi-dev
 
-#install mpi for python
-RUN pip3 install mpi4py
+#Python Packages
+#- mpi4py
+#- termcolor
+#- numpy
+#- pandas
+#- tqdm
+RUN pip3 install mpi4py termcolor numpy pandas tqdm
 
 
 #Create user
