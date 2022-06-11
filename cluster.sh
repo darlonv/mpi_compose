@@ -8,6 +8,7 @@ cluster_up(){
 	docker-compose up -d --scale worker="${1}"
 	#Update ips list
 	./get_ips.sh
+	echo "Master is on $(cat work/ip_master.txt)"
 }
 
 #Cluster down
