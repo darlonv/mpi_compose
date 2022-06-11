@@ -30,7 +30,7 @@ sudo ./cluster.sh -n 20 -r
 
 This configuration consists on geting the cluster up and generate ssh keys. `-r` must be **after** `-n`. The generated IP addresses list will be put inside the `work` directory. 
 
-Inside containers, there is a `mpi` user with `UID=1000`. The `work` directory must have write permissions to the user with this UID on host, in order to keep this files and write processes outputs. If needed to user another UID, a new docker image must be built.
+Inside containers, there is a `mpi` user with `UID=1000`. The `work` directory must have write permissions to the user with this UID int the host machine, in order to keep those files and also write eventually processes outputs. If needed to user another UID, a new docker image must be built.
 
 
 - Start the cluster, with 10 nodes. This number must be smaller than the number of nodes set with `-r`.
